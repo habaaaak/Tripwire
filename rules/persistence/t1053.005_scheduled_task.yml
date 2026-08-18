@@ -1,0 +1,32 @@
+title: Suspicious Scheduled Task Creation
+id: 4b7d9e21-3f62-4a8c-b105-7d29e6f4c831
+status: experimental
+description: Detects the creation of Windows scheduled tasks, which may be used for persistence.
+author: Tripwire
+date: 2026-08-18
+
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+
+tags:
+  - attack.persistence
+  - attack.execution
+  - attack.privilege-escalation
+  - attack.t1053.005
+
+logsource:
+  product: windows
+  service: security
+
+detection:
+  selection:
+    EventID: 4698
+
+  condition: selection
+
+falsepositives:
+  - Legitimate software installation
+  - Windows system maintenance
+  - Enterprise management software creating scheduled tasks
+
+level: medium

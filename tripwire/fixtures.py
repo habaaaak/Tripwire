@@ -22,3 +22,21 @@ def matches_lsass_rule(event):
             "0x1fffff",
         }
     )    
+
+def matches_scheduled_task_rule(event):
+    """Return True for suspicious scheduled task creation."""
+
+    if event.get("EventID") != 4698:
+        return False
+
+    task_content = event.get("TaskContent", "")
+
+    suspicious_indicators = [
+        r"C:\Users\Public\\",
+        r"update.exe",
+    ]
+
+    return any(
+        indicator.lower() in task_content.lower()
+        for indicator in suspicious_indicators
+    )
