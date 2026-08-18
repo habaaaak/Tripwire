@@ -1,0 +1,33 @@
+title: Suspicious NTDS Database Access
+id: 4f3b7e91-7c4d-4b7f-9a1e-2c8d6f5b1034
+status: experimental
+description: Detects suspicious access to the Active Directory NTDS database that may indicate credential dumping.
+author: Tripwire
+date: 2026-08-18
+
+references:
+  - https://attack.mitre.org/techniques/T1003/003/
+
+tags:
+  - attack.credential-access
+  - attack.t1003.003
+
+logsource:
+  category: process_creation
+  product: windows
+
+detection:
+  selection:
+    Image|endswith:
+      - '\ntdsutil.exe'
+      - '\secretsdump.exe'
+    CommandLine|contains:
+      - 'ntds.dit'
+  condition: selection
+
+falsepositives:
+  - Legitimate Active Directory backup operations
+  - Authorized domain controller administration
+  - Security or diagnostic tools
+
+level: high
