@@ -1,0 +1,6 @@
+EventID: 10
+SourceImage: C:\Tools\mimikatz.exe
+TargetImage: C:\Windows\System32\lsass.exe
+GrantedAccess: '0x1fffff'
+SourceUser: TEST\attacker
+TargetUser: NT AUTHORITY\SYSTEM

@@ -1,0 +1,35 @@
+title: Suspicious LSASS Process Access
+id: 8f3d2c91-6b47-4f3e-9d21-5a7c1e8b42f6
+status: experimental
+description: Detects suspicious process access to the LSASS process that may indicate credential dumping.
+author: Tripwire
+date: 2026-08-18
+
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+
+tags:
+  - attack.credential-access
+  - attack.t1003.001
+
+logsource:
+  category: process_access
+
+detection:
+  selection:
+    EventID: 10
+    TargetImage|endswith: '\lsass.exe'
+    GrantedAccess:
+      - '0x1010'
+      - '0x1038'
+      - '0x1438'
+      - '0x143a'
+      - '0x1fffff'
+
+  condition: selection
+
+falsepositives:
+  - Legitimate security software accessing LSASS
+  - Administrative or diagnostic tools accessing LSASS
+
+level: high
