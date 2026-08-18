@@ -1,0 +1,4 @@
+EventID: 7045
+ServiceName: 'Windows Update'
+ImagePath: 'C:\Windows\System32\svchost.exe -k netsvcs'
+AccountName: 'LocalSystem'

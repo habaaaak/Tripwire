@@ -66,3 +66,22 @@ def matches_powershell_rule(event):
         indicator in command_line
         for indicator in suspicious_indicators
     )
+
+def matches_windows_service_rule(event):
+    """Return True for suspicious Windows service creation."""
+
+    if event.get("EventID") != 7045:
+        return False
+
+    image_path = event.get("ImagePath", "").lower()
+
+    suspicious_locations = [
+        "\\users\\public\\",
+        "\\temp\\",
+        "\\appdata\\",
+    ]
+
+    return any(
+        location in image_path
+        for location in suspicious_locations
+    )

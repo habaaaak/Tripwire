@@ -1,0 +1,34 @@
+title: Suspicious Windows Service Creation
+id: 8f4b2c91-3a67-4d15-b821-6e9c7f204531
+status: experimental
+description: Detects Windows service creation where the service executable is launched from a suspicious location.
+author: Tripwire
+date: 2026-08-18
+
+references:
+  - https://attack.mitre.org/techniques/T1543/003/
+
+tags:
+  - attack.persistence
+  - attack.t1543.003
+
+logsource:
+  product: windows
+  service: system
+
+detection:
+  selection:
+    EventID: 7045
+    ImagePath|contains:
+      - '\Users\Public\'
+      - '\Temp\'
+      - '\AppData\'
+
+  condition: selection
+
+falsepositives:
+  - Legitimate software installation
+  - Enterprise software deployment
+  - System administration
+
+level: medium
