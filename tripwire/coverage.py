@@ -7,6 +7,7 @@ from tripwire.fixtures import (
     matches_scheduled_task_rule,
     matches_powershell_rule,
     matches_windows_service_rule,
+    matches_event_log_clearing_rule,
 )
 
 
@@ -15,6 +16,7 @@ RULE_MATCHERS = {
     "T1053.005": matches_scheduled_task_rule,
     "T1059.001": matches_powershell_rule,
     "T1543.003": matches_windows_service_rule,
+    "T1685.005": matches_event_log_clearing_rule, 
 }
 
 
@@ -49,6 +51,7 @@ def validate_technique(technique):
         "T1053.005": "t1053.005_scheduled_task.yml",
         "T1059.001": "t1059.001_powershell.yml",
         "T1543.003": "t1543.003_windows_service.yml",
+        "T1685.005": "t1685.005_event_log_clearing.yml",
     }
 
     if matcher is None or technique not in fixture_map:
