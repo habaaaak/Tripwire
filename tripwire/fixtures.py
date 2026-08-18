@@ -40,3 +40,29 @@ def matches_scheduled_task_rule(event):
         indicator.lower() in task_content.lower()
         for indicator in suspicious_indicators
     )
+
+def matches_powershell_rule(event):
+    """Return True for suspicious PowerShell execution."""
+
+    if event.get("EventID") != 1:
+        return False
+
+    image = event.get("Image", "").lower()
+    command_line = event.get("CommandLine", "").lower()
+
+    if not (image.endswith("\\powershell.exe") or image.endswith("\\pwsh.exe")):
+        return False
+
+    suspicious_indicators = [
+        "-enc",
+        "-encodedcommand",
+        "-nop",
+        "-noprofile",
+        "-hidden",
+        "-windowstyle hidden",
+    ]
+
+    return any(
+        indicator in command_line
+        for indicator in suspicious_indicators
+    )

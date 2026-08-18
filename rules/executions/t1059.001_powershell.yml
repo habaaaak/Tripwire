@@ -1,0 +1,39 @@
+title: Suspicious PowerShell Execution
+id: 6c2f8a41-7e35-4d91-b628-9f4a1c73e205
+status: experimental
+description: Detects PowerShell execution using suspicious command-line parameters commonly associated with script execution or defense evasion.
+author: Tripwire
+date: 2026-08-18
+
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+
+tags:
+  - attack.execution
+  - attack.t1059.001
+
+logsource:
+  category: process_creation
+  product: windows
+
+detection:
+  selection:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+    CommandLine|contains:
+      - '-enc'
+      - '-encodedcommand'
+      - '-nop'
+      - '-noprofile'
+      - '-hidden'
+      - '-windowstyle hidden'
+
+  condition: selection
+
+falsepositives:
+  - Legitimate administrative PowerShell scripts
+  - Enterprise automation tools
+  - System administration
+
+level: medium
