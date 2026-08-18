@@ -1,0 +1,6 @@
+EventID: 10
+SourceImage: C:\Windows\System32\svchost.exe
+TargetImage: C:\Windows\System32\services.exe
+GrantedAccess: '0x1010'
+SourceUser: NT AUTHORITY\SYSTEM
+TargetUser: NT AUTHORITY\SYSTEM
