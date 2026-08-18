@@ -1,0 +1,6 @@
+EventID: 4698
+TaskName: \WindowsUpdateCheck
+TaskContent: '<Task><Triggers><LogonTrigger/></Triggers><Actions><Exec><Command>C:\Users\Public\update.exe</Command></Exec></Actions></Task>'
+SubjectUserName: testuser
+SubjectDomainName: TEST
+ClientProcessId: 4242
