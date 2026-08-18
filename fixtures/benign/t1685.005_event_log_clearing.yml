@@ -1,0 +1,5 @@
+EventID: 4624
+ProviderName: Microsoft-Windows-Security-Auditing
+Channel: Security
+Message: An account was successfully logged on.
+SubjectUserName: user

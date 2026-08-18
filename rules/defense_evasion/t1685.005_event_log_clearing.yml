@@ -1,0 +1,29 @@
+title: Windows Event Log Cleared
+id: 4b8e7c21-6d91-4a62-9f3c-1a5e8b7d2046
+status: experimental
+description: Detects Windows Security Event ID 1102 indicating that the audit log was cleared.
+author: Tripwire
+date: 2026-08-18
+
+references:
+  - https://attack.mitre.org/techniques/T1685/005/
+
+tags:
+  - attack.defense-impairment
+  - attack.t1685.005
+
+logsource:
+  product: windows
+  service: security
+
+detection:
+  selection:
+    EventID: 1102
+
+  condition: selection
+
+falsepositives:
+  - Legitimate administrative maintenance
+  - Troubleshooting or audit log management
+
+level: high

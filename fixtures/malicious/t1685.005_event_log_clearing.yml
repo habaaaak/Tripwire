@@ -1,0 +1,5 @@
+EventID: 1102
+ProviderName: Microsoft-Windows-Eventlog
+Channel: Security
+Message: The audit log was cleared.
+SubjectUserName: attacker

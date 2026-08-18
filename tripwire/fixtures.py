@@ -50,6 +50,7 @@ def matches_powershell_rule(event):
     image = event.get("Image", "").lower()
     command_line = event.get("CommandLine", "").lower()
 
+
     if not (image.endswith("\\powershell.exe") or image.endswith("\\pwsh.exe")):
         return False
 
@@ -85,3 +86,11 @@ def matches_windows_service_rule(event):
         location in image_path
         for location in suspicious_locations
     )
+
+def matches_event_log_clearing_rule(event):
+    """Return True when Windows Event ID 1102 is detected."""
+
+    if event.get("EventID") != 1102:
+        return False
+
+    return True
