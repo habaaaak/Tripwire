@@ -94,3 +94,16 @@ def matches_event_log_clearing_rule(event):
         return False
 
     return True
+
+def matches_ntds_rule(event):
+    """Return True when suspicious NTDS database access is detected."""
+
+    image = event.get("Image", "").lower()
+    command_line = event.get("CommandLine", "").lower()
+
+    suspicious_tools = (
+        image.endswith("\\ntdsutil.exe")
+        or image.endswith("\\secretsdump.exe")
+    )
+
+    return suspicious_tools and "ntds.dit" in command_line
